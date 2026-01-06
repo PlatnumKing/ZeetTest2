@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+    <!-- Form -->
+    <div class="card">
+        <h2>Register New Admin</h2>
+        <p style="color:var(--text-muted);">Create a new administrator.</p>
+        <form method="POST">
+            <label>New Username</label>
+            <input type="text" name="username" required>
+            
+            <label>New Password</label>
+            <input type="password" name="password" required>
+            
+            <button type="submit">Create User</button>
+        </form>
+    </div>
+
+    <!-- List -->
+    <div class="card">
+        <h2>Admin List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>
+                        {{ user.username }}
+                        {% if user.username == 'admin' %} <span style="font-size:0.8rem; color:var(--text-muted);">(Default)</span>{% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

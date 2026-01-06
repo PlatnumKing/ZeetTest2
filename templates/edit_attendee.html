@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card" style="max-width:600px; margin:0 auto;">
+    <h2>Edit Attendee</h2>
+    <form method="POST">
+        <label>Name</label>
+        <input type="text" name="name" value="{{ attendee.name }}" required>
+        
+        <label>Phone</label>
+        <input type="text" name="phone" value="{{ attendee.phone }}">
+        
+        <label>Parent Phone</label>
+        <input type="text" name="parent_phone" value="{{ attendee.parent_phone }}">
+        
+        <label>Email</label>
+        <input type="text" name="email" value="{{ attendee.email }}">
+
+        <label>Address</label>
+        <input type="text" name="address" value="{{ attendee.address }}">
+        
+        <div style="display:flex; gap:10px;">
+            <button type="submit">Update Info</button>
+            <a href="{{ url_for('event_detail', event_id=attendee.event_id) }}" class="btn" style="background:var(--text-muted);">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

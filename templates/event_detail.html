@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <a href="{{ url_for('dashboard') }}">&larr; Back to Dashboard</a>
+        <div>
+            <a href="{{ url_for('export_excel', event_id=event.id) }}" class="btn btn-export">Export Excel</a>
+            <a href="{{ url_for('export_pdf', event_id=event.id) }}" class="btn btn-export pdf">Export PDF</a>
+        </div>
+    </div>
+    
+    <div class="card" style="margin-top:20px;">
+        <h2 style="margin-top:0;">{{ event.title }}</h2>
+        <span class="event-date">📅 {{ event.date }}</span>
+        <p>{{ event.description }}</p>
+    </div>
+
+    <div class="card">
+        <h3 class="card-title">Register Attendee</h3>
+        <form method="POST" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+            <input type="text" name="name" placeholder="Full Name" required style="margin:0;">
+            <input type="text" name="phone" placeholder="Phone Number" style="margin:0;">
+            <input type="text" name="parent_phone" placeholder="Parent's Phone" style="margin:0;">
+            <input type="text" name="email" placeholder="Email" style="margin:0;">
+            <input type="text" name="address" placeholder="Address" style="margin:0; grid-column: span 2;">
+            <button type="submit" style="grid-column: span 2;">Add to List</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3 class="card-title">Registered List ({{ event.attendees|length }})</h3>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Parent Ph.</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attendee in event.attendees %}
+                    <tr>
+                        <td style="font-weight:600;">{{ attendee.name }}</td>
+                        <td>{{ attendee.phone }}</td>
+                        <td>{{ attendee.parent_phone }}</td>
+                        <td>{{ attendee.email }}</td>
+                        <td style="font-size:0.9rem;">{{ attendee.address }}</td>
+                        <td class="actions">
+                            <a href="{{ url_for('edit_attendee', id=attendee.id) }}" class="btn-edit">✎</a>
+                            <a href="{{ url_for('delete_attendee', id=attendee.id) }}" class="btn-danger" onclick="return confirm('Remove {{ attendee.name }}?')">×</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" style="text-align:center; color:var(--text-muted);">No one registered yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

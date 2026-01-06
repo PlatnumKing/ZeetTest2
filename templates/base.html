@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Teen Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">TeenMinistry<span style="color:var(--text-muted)">App</span></div>
+        <nav style="display:flex; align-items:center;">
+            {% if current_user.is_authenticated %}
+                <span class="user-badge">👤 {{ current_user.username }}</span>
+                <a href="{{ url_for('dashboard') }}">Events</a>
+                <a href="{{ url_for('register_admin') }}">Admins</a>
+                <a href="{{ url_for('change_password') }}">Settings</a>
+                <a href="{{ url_for('logout') }}" class="btn-logout">Logout</a>
+            {% endif %}
+            <div class="theme-switch-wrapper" style="margin-left:15px;">
+                <button id="theme-toggle" class="theme-btn" title="Toggle Dark Mode">◑</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flash">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        toggleBtn.addEventListener('click', () => {
+            let currentTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+</body>
+</html>

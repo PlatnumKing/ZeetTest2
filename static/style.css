@@ -1,0 +1,189 @@
+/* --- CSS Variables for Theming --- */
+:root {
+    /* Light Mode (Default) */
+    --bg-body: #f0f2f5;
+    --bg-card: #ffffff;
+    --bg-header: #ffffff;
+    --text-main: #050505;
+    --text-muted: #65676b;
+    --primary: #1877f2;
+    --primary-hover: #166fe5;
+    --border: #dddfe2;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --input-bg: #f5f6f7;
+    --danger: #e74c3c;
+    --success-bg: #eafaf1;
+    --success-text: #2ecc71;
+}
+
+[data-theme="dark"] {
+    /* Dark Mode Overrides */
+    --bg-body: #18191a;
+    --bg-card: #242526;
+    --bg-header: #242526;
+    --text-main: #e4e6eb;
+    --text-muted: #b0b3b8;
+    --primary: #2d88ff;
+    --primary-hover: #4599ff;
+    --border: #3e4042;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --input-bg: #3a3b3c;
+    --success-bg: #1e3a29;
+}
+
+/* --- Global Reset & Typography --- */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a { text-decoration: none; color: var(--primary); font-weight: 500; }
+a:hover { text-decoration: underline; }
+
+/* --- Header & Nav --- */
+header {
+    background-color: var(--bg-header);
+    box-shadow: var(--shadow);
+    padding: 0 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+}
+
+.logo { font-size: 1.2rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+
+nav a {
+    margin-left: 20px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+nav a:hover { color: var(--primary); text-decoration: none; }
+nav a.btn-logout { color: var(--danger); }
+
+/* --- Layout --- */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* --- Cards --- */
+.card {
+    background-color: var(--bg-card);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+}
+
+.card-title {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: var(--text-main);
+}
+
+/* --- Forms --- */
+label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; color: var(--text-muted); }
+input[type="text"], input[type="password"], input[type="date"], textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background-color: var(--input-bg);
+    color: var(--text-main);
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+input:focus, textarea:focus { outline: 2px solid var(--primary); border-color: transparent; }
+
+button, .btn {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-block;
+    transition: background 0.2s;
+}
+button:hover, .btn:hover { background-color: var(--primary-hover); text-decoration: none; }
+
+/* --- Grid Layout for Dashboard --- */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.event-date { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px; display: block; }
+
+/* --- Tables --- */
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+th { text-align: left; padding: 12px; border-bottom: 2px solid var(--border); color: var(--text-muted); }
+td { padding: 12px; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+
+/* --- Theme Toggle Switch --- */
+.theme-switch-wrapper { display: flex; align-items: center; }
+.theme-btn {
+    background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-main); padding: 5px;
+}
+
+/* --- Alerts --- */
+.flash { padding: 15px; border-radius: 6px; background: var(--success-bg); color: var(--success-text); margin-bottom: 20px; font-weight: 600; }
+
+/* ... (Keep all the previous Variables, Body, and Card styles from the previous response) ... */
+
+/* Add these NEW styles to your existing CSS file */
+
+.btn-danger {
+    background-color: var(--danger);
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+}
+.btn-danger:hover { background-color: #c0392b; }
+
+.btn-edit {
+    background-color: var(--text-muted);
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+}
+.btn-edit:hover { background-color: var(--text-main); }
+
+.btn-export {
+    background-color: #27ae60; /* Excel Green */
+    margin-right: 5px;
+    padding: 8px 12px;
+}
+.btn-export.pdf { background-color: #e74c3c; /* PDF Red */ }
+.btn-export:hover { filter: brightness(90%); }
+
+.actions {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+}
+
+.user-badge {
+    background: var(--input-bg);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    margin-right: 15px;
+}
+
+/* Make table responsive */
+.table-responsive { overflow-x: auto; }
